@@ -64,6 +64,13 @@ def draw_dot(position, screen, startcorner, color=(255,255,255), zoom=14, radius
     screnpos = basemap.real_coords_to_map_coords_fixed(*position, startcorner=startcorner, zoom=zoom)
     pygame.draw.circle(screen, color, screnpos, radius)
 
+def draw_attribution(screen, string="(C) OpenStreetMap contributors"):
+    text = small.render(string, True, (5,5,5))
+    text_size = text.get_size()
+    screen_size = screen.get_size()
+    top_corner = (screen_size[0] - text_size[0], screen_size[1] - text_size[1])
+    pygame.draw.rect(screen, (250,250,250), (top_corner, text_size))
+    screen.blit(text, top_corner)
 
 def middle(a, b):
     return (a + b) / 2
@@ -111,6 +118,7 @@ def draw_msa(start, screen, zoom, filename="msa_usa.csv"):
 def screen_draw(screen, startcorner, zoom):
     draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom)
     draw_msa(start=startcorner, screen=screen, zoom=zoom)
+    draw_attribution(screen)
 
 if __name__ == "__main__":
     lastmouse = (0,0)
