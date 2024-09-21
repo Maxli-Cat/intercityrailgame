@@ -2,6 +2,7 @@ import pygame
 import sys
 import time
 import basemap
+from functools import lru_cache
 
 pygame.init()
 pygame.font.init()
@@ -14,7 +15,6 @@ SIZE = WIDTH, LENGTH = (900, 600)
 screen = pygame.display.set_mode(SIZE, FLAGS)
 
 startcorner = [***REMOVED***]
-***REMOVED***
 
 zoom_factor = 13
 move_factor = 40 / (2 ** zoom_factor)
@@ -86,12 +86,28 @@ def zoom_up(corner, size, zoom):
     new_top_corner = [top_corner[0] + xoffset, top_corner[1] + yoffset]
     return new_top_corner
 
+@lru_cache()
+def load_msas(filenames):
+    file = open(filenames).read().split('\n')
+    dataset = [i.split(', ') for i in file if len(i) > 1]
+    points = [(float(i[2]), float(i[3])) for i in dataset]
+    return points
+
+def draw_msa(start, screen, zoom, filename="msa_usa.csv"):
+    points = load_msas(filename)
+    for point in points:
+        draw_dot(position=point, screen=screen, startcorner=start, zoom=zoom, radius=5, color=(255,0,0))
+
+
+def screen_draw(screen, startcorner, zoom):
+    draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom)
+    draw_dot(home, screen, startcorner, zoom=zoom_factor)
+    draw_msa(start=startcorner, screen=screen, zoom=zoom)
 
 if __name__ == "__main__":
     pygame.display.set_caption("Intercity Rail Game")
     screen.fill((255, 255, 255))
-    draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
-    draw_dot(home, screen, startcorner, zoom=zoom_factor)
+    screen_draw(screen, startcorner, zoom=zoom_factor)
     pygame.display.flip()
 
     while True:
@@ -104,8 +120,7 @@ if __name__ == "__main__":
                 sys.exit()
 
             elif event.type == pygame.VIDEORESIZE or event.type == pygame.VIDEOEXPOSE:
-                draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
-                draw_dot(home, screen, startcorner, zoom=zoom_factor)
+                screen_draw(screen, startcorner, zoom=zoom_factor)
 
             elif event.type == pygame.MOUSEWHEEL:
                 screen.fill((255, 255, 255))
@@ -116,26 +131,21 @@ if __name__ == "__main__":
 
                 zoom_factor += event.y
                 move_factor = 40 / (2 ** zoom_factor)
-                draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
-                draw_dot(home, screen, startcorner, zoom=zoom_factor)
+                screen_draw(screen, startcorner, zoom=zoom_factor)
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     startcorner[0] += move_factor
-                    draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
-                    draw_dot(home, screen, startcorner, zoom=zoom_factor)
+                    screen_draw(screen, startcorner, zoom=zoom_factor)
 
                 elif event.key == pygame.K_DOWN:
                     startcorner[0] -= move_factor
-                    draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
-                    draw_dot(home, screen, startcorner, zoom=zoom_factor)
+                    screen_draw(screen, startcorner, zoom=zoom_factor)
 
                 elif event.key == pygame.K_LEFT:
                     startcorner[1] -= move_factor
-                    draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
-                    draw_dot(home, screen, startcorner, zoom=zoom_factor)
+                    screen_draw(screen, startcorner, zoom=zoom_factor)
 
                 elif event.key == pygame.K_RIGHT:
                     startcorner[1] += move_factor
-                    draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
-                    draw_dot(home, screen, startcorner, zoom=zoom_factor)
+                    screen_draw(screen, startcorner, zoom=zoom_factor)
