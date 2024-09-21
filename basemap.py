@@ -13,13 +13,11 @@ def sec(x):
 def arsinh(x):
     return math.log(x + (x**2 + 1)**0.5)
 
-
 def get_tile_cords(zoom, lat, lon):
     n = 2 ** zoom
     xtile = n * ((lon + 180) / 360)
     lat = math.radians(lat)
     ytile = n * (1 - (math.log(math.tan(lat) + sec(lat)) / math.pi)) /2
-
     return (int(xtile), int(ytile))
 
 def get_tile_corner(zoom, x, y):
@@ -27,7 +25,6 @@ def get_tile_corner(zoom, x, y):
     lon_deg = x / n * 360.0 - 180.0
     lat_rad = math.atan(math.sinh(math.pi * (1 - 2 * y / n)))
     lat_deg = math.degrees(lat_rad)
-
     return (lat_deg, lon_deg)
 
 def download_tile(z, x, y, basepath="tiles"):
