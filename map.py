@@ -14,7 +14,7 @@ SIZE = WIDTH, LENGTH = (900, 600)
 
 screen = pygame.display.set_mode(SIZE, FLAGS)
 
-startcorner = [***REMOVED***]
+startcorner = [43.0133468,-71.4952949]
 
 zoom_factor = 13
 move_factor = 40 / (2 ** zoom_factor)
@@ -101,7 +101,6 @@ def draw_msa(start, screen, zoom, filename="msa_usa.csv"):
 
 def screen_draw(screen, startcorner, zoom):
     draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom)
-    draw_dot(home, screen, startcorner, zoom=zoom_factor)
     draw_msa(start=startcorner, screen=screen, zoom=zoom)
 
 if __name__ == "__main__":
