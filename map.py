@@ -104,9 +104,17 @@ def zoom_up(corner, size, zoom):
 
 @lru_cache()
 def load_msas(filenames):
-    file = open(filenames).read().split('\n')
-    dataset = [i.split(', ') for i in file if len(i) > 1]
-    points = [(float(i[2]), float(i[3])) for i in dataset]
+    file = open(filenames, encoding='utf-8').read().split('\n')
+    dataset = [i.split(',') for i in file if len(i) > 1]
+    #points = [(float(i[2]), float(i[3])) for i in dataset]
+    points = []
+    for line in dataset:
+        try:
+            point = float(line[2]), float(line[3])
+            points.append(point)
+        except IndexError:
+            print(line)
+            exit()
     return points
 
 def draw_msa(start, screen, zoom, filename="msa_usa.csv"):
@@ -117,7 +125,7 @@ def draw_msa(start, screen, zoom, filename="msa_usa.csv"):
 
 def screen_draw(screen, startcorner, zoom):
     draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom)
-    draw_msa(start=startcorner, screen=screen, zoom=zoom)
+    draw_msa(start=startcorner, screen=screen, zoom=zoom, filename="msa.csv")
     draw_attribution(screen)
 
 if __name__ == "__main__":
