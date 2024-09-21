@@ -5,6 +5,8 @@ import os
 import time
 from tqdm import tqdm, trange
 
+style = "Mapnik"
+
 def sec(x):
     return 1/math.cos(x)
 
@@ -29,32 +31,36 @@ def get_tile_corner(zoom, x, y):
     return (lat_deg, lon_deg)
 
 def download_tile(z, x, y, basepath="tiles"):
-    url = f"https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+    #url = f"https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+    #style = "Mapnik"
+    #url = f"https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+    url = xyz['OpenStreetMap'][style]['url']
+    url = url.replace('{s}','a').replace('{z}', f'{z}').replace('{x}', f'{x}').replace('{y}', f'{y}')
+    #print(url)
+    #exit()
     #print(url)
     opener = urllib.request.build_opener()
     opener.addheaders = [('User-agent', 'Sophie Johnson Intercity Rail Game 0.0.1')]
     urllib.request.install_opener(opener)
     print(url)
-    urllib.request.urlretrieve(url, f"{basepath}\\{z}_{x}_{y}.png")
+    urllib.request.urlretrieve(url, f"{basepath}\\{style}_{z}_{x}_{y}.png")
     time.sleep(0.1)
 
-undownloaded = 0
 downloaded = 0
 
 def get_tile(z, x, y, basepath="tiles"):
-    global undownloaded, downloaded
-    filename = f"{basepath}\\{z}_{x}_{y}.png"
+    global downloaded
+    filename = f"{basepath}\\{style}_{z}_{x}_{y}.png"
     if not os.path.exists(filename):
         download_tile(z, x, y, basepath)
         downloaded += 1
         return
-    undownloaded += 1
     filetime = os.path.getmtime(filename)
     age = time.time() - filetime
     if age > 604800:
         download_tile(z, x, y, basepath)
 
-def print_cache_stats():
+def print_cache_stats(undownloaded):
     print(f"{undownloaded=}, {downloaded=}, {(undownloaded/(downloaded + undownloaded))*100}%")
 
 def get_tiles(startlat, startlon, endlat, endlon, zoom, basepath="tiles"):

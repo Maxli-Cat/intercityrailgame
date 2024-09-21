@@ -29,19 +29,15 @@ def get_images_cache(zoom, x, y):
         cache_hits += 1
         return tile_surfaces[key]
     cache_misses += 1
-    filename = f"tiles\\{zoom}_{x}_{y}.png"
+    filename = f"tiles\\{basemap.style}_{zoom}_{x}_{y}.png"
     image = pygame.image.load(filename).convert()
     tile_surfaces[key] = image
     return image
 
 def draw_tiles(start, size, screen, zoom=14):
-
-
     xcount = (size[0] // 256) + 2
     ycount = (size[1] // 256) + 2
     tile_range = basemap.get_count_tiles(start, xcount, ycount, zoom)
-
-    #print(tile_range)
 
     startoffset = basemap.get_offset(zoom, *start)
     startoffset = (0-startoffset[1], 0-startoffset[0])
@@ -65,7 +61,7 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 print(f"{cache_hits=}, {cache_misses=}, {100 * (cache_hits/(cache_hits+cache_misses))}%")
-                basemap.print_cache_stats()
+                basemap.print_cache_stats(cache_misses)
                 pygame.quit()
                 sys.exit()
 
