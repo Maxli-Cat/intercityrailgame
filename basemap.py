@@ -38,15 +38,24 @@ def download_tile(z, x, y, basepath="tiles"):
     urllib.request.urlretrieve(url, f"{basepath}\\{z}_{x}_{y}.png")
     time.sleep(0.1)
 
+undownloaded = 0
+downloaded = 0
+
 def get_tile(z, x, y, basepath="tiles"):
+    global undownloaded, downloaded
     filename = f"{basepath}\\{z}_{x}_{y}.png"
     if not os.path.exists(filename):
         download_tile(z, x, y, basepath)
+        downloaded += 1
         return
+    undownloaded += 1
     filetime = os.path.getmtime(filename)
     age = time.time() - filetime
     if age > 604800:
         download_tile(z, x, y, basepath)
+
+def print_cache_stats():
+    print(f"{undownloaded=}, {downloaded=}, {(undownloaded/(downloaded + undownloaded))*100}%")
 
 def get_tiles(startlat, startlon, endlat, endlon, zoom, basepath="tiles"):
     starttile = get_tile_cords(zoom, startlat, startlon)

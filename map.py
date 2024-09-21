@@ -65,6 +65,7 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 print(f"{cache_hits=}, {cache_misses=}, {100 * (cache_hits/(cache_hits+cache_misses))}%")
+                basemap.print_cache_stats()
                 pygame.quit()
                 sys.exit()
 
