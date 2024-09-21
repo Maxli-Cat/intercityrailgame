@@ -96,8 +96,20 @@ def get_offset(zoom, lat, lon):
     y = point_in_range(lon, topleft[1], bottomright[1])
     return (x * 255, y * 255)
 
+def real_coords_to_map_coords_fixed(lat, lon, startcorner, zoom):
+    corner_tile = get_tile_cords(zoom, *startcorner)
+    targer_tile = get_tile_cords(zoom, lat, lon)
+    delta_x = (corner_tile[0] - targer_tile[0]) * -256
+    delta_y = (corner_tile[1] - targer_tile[1]) * -256
+    corner_offset = get_offset(zoom, *startcorner)
+    target_offset = get_offset(zoom, lat, lon)
+    delta_x += (256 - corner_offset[1])
+    delta_y += (256 - corner_offset[0])
 
+    delta_x -= (256 - target_offset[1])
+    delta_y -= (256 - target_offset[0])
 
+    return delta_x, delta_y
 
 
 if __name__ == '__main__':

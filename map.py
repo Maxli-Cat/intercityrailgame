@@ -14,6 +14,7 @@ SIZE = WIDTH, LENGTH = (900, 600)
 screen = pygame.display.set_mode(SIZE, FLAGS)
 
 startcorner = [***REMOVED***]
+***REMOVED***
 
 zoom_factor = 13
 move_factor = 40 / (2 ** zoom_factor)
@@ -50,6 +51,11 @@ def draw_tiles(start, size, screen, zoom=14):
             offset = (startoffset[0] + (i * 256), startoffset[1] + (j * 256))
             screen.blit(image, offset)
 
+def draw_dot(position, screen, startcorner, color=(255,255,255), zoom=14, radius=5):
+    screnpos = basemap.real_coords_to_map_coords_fixed(*position, startcorner=startcorner, zoom=zoom)
+    pygame.draw.circle(screen, color, screnpos, radius)
+
+
 def middle(a, b):
     return (a + b) / 2
 
@@ -63,8 +69,6 @@ def zoom_down(corner, size, zoom):
     bottom_corner_tile = (top_corner_tile[0] + xcount, top_corner_tile[1] + ycount)
     top_corner = basemap.get_tile_corner(zoom, *top_corner_tile)
     bottom_corner = basemap.get_tile_corner(zoom, *bottom_corner_tile)
-    print(top_corner)
-    print(bottom_corner)
     center = cord_middle(top_corner, bottom_corner)
     new_corner = cord_middle(top_corner, center)
     return list(new_corner)
@@ -87,6 +91,7 @@ if __name__ == "__main__":
     pygame.display.set_caption("Intercity Rail Game")
     screen.fill((255, 255, 255))
     draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
+    draw_dot(home, screen, startcorner, zoom=zoom_factor)
     pygame.display.flip()
 
     while True:
@@ -100,6 +105,7 @@ if __name__ == "__main__":
 
             elif event.type == pygame.VIDEORESIZE or event.type == pygame.VIDEOEXPOSE:
                 draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
+                draw_dot(home, screen, startcorner, zoom=zoom_factor)
 
             elif event.type == pygame.MOUSEWHEEL:
                 screen.fill((255, 255, 255))
@@ -111,20 +117,25 @@ if __name__ == "__main__":
                 zoom_factor += event.y
                 move_factor = 40 / (2 ** zoom_factor)
                 draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
+                draw_dot(home, screen, startcorner, zoom=zoom_factor)
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     startcorner[0] += move_factor
                     draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
+                    draw_dot(home, screen, startcorner, zoom=zoom_factor)
 
                 elif event.key == pygame.K_DOWN:
                     startcorner[0] -= move_factor
                     draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
+                    draw_dot(home, screen, startcorner, zoom=zoom_factor)
 
                 elif event.key == pygame.K_LEFT:
                     startcorner[1] -= move_factor
                     draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
+                    draw_dot(home, screen, startcorner, zoom=zoom_factor)
 
                 elif event.key == pygame.K_RIGHT:
                     startcorner[1] += move_factor
                     draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom_factor)
+                    draw_dot(home, screen, startcorner, zoom=zoom_factor)
