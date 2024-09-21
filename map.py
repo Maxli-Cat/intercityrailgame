@@ -35,6 +35,15 @@ def get_images_cache(zoom, x, y):
     tile_surfaces[key] = image
     return image
 
+
+def calc_offset_factors(lat, lon, zoom, aspect=1.0):
+    tile = basemap.get_tile_cords(lat=lat, lon=lon, zoom=zoom)
+    topleft = basemap.get_tile_corner(zoom, *tile)
+    bottomright = basemap.get_tile_corner(zoom, tile[0]+1, tile[1]+1)
+    deltax = topleft[0] - bottomright[0]
+    deltay = topleft[1] - bottomright[1]
+    return ((deltax / 256) * aspect, (deltay / 256) * 1/aspect)
+
 def draw_tiles(start, size, screen, zoom=14):
     xcount = (size[0] // 256) + 2
     ycount = (size[1] // 256) + 2
@@ -104,6 +113,9 @@ def screen_draw(screen, startcorner, zoom):
     draw_msa(start=startcorner, screen=screen, zoom=zoom)
 
 if __name__ == "__main__":
+    lastmouse = (0,0)
+    offsetfactors = (1,1)
+    clicked = False
     pygame.display.set_caption("Intercity Rail Game")
     screen.fill((255, 255, 255))
     screen_draw(screen, startcorner, zoom=zoom_factor)
@@ -134,17 +146,38 @@ if __name__ == "__main__":
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    startcorner[0] += move_factor
+                    startcorner = (startcorner[0] + move_factor, startcorner[1])
                     screen_draw(screen, startcorner, zoom=zoom_factor)
 
                 elif event.key == pygame.K_DOWN:
-                    startcorner[0] -= move_factor
+                    startcorner = (startcorner[0] + move_factor, startcorner[1])
                     screen_draw(screen, startcorner, zoom=zoom_factor)
 
                 elif event.key == pygame.K_LEFT:
-                    startcorner[1] -= move_factor
+                    startcorner = (startcorner[0], startcorner[1] - move_factor)
                     screen_draw(screen, startcorner, zoom=zoom_factor)
 
                 elif event.key == pygame.K_RIGHT:
-                    startcorner[1] += move_factor
+                    startcorner = (startcorner[0], startcorner[1] + move_factor)
                     screen_draw(screen, startcorner, zoom=zoom_factor)
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    clicked = True
+                    lastmouse = pygame.mouse.get_pos()
+                    size = pygame.display.get_surface().get_size()
+                    aspect = size[0] / size[1]
+                    offsetfactors = calc_offset_factors(*startcorner, zoom=zoom_factor, aspect=aspect)
+
+            elif event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    clicked = False
+
+            if clicked:
+                newpos = pygame.mouse.get_pos()
+                deltay = (newpos[0] - lastmouse[0]) * offsetfactors[0]
+                deltax = (newpos[1] - lastmouse[1]) * offsetfactors[1]
+                #print(deltax, deltay)
+                lastmouse = newpos
+                startcorner = (startcorner[0] - deltax, startcorner[1] - deltay)
+                screen_draw(screen, startcorner, zoom=zoom_factor)
