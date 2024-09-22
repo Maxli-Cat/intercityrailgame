@@ -46,6 +46,7 @@ def download_tile(z, x, y, basepath="tiles"):
 downloaded = 0
 
 def get_tile(z, x, y, basepath="tiles"):
+    if x < 0 or y < 0 or z < 1: return
     global downloaded
     filename = f"{basepath}\\{style}_{z}_{x}_{y}.png"
     if not os.path.exists(filename):
