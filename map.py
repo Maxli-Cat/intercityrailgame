@@ -4,7 +4,7 @@ import time
 import basemap
 from functools import lru_cache
 import csv
-from city import City
+from city import City, load_cities
 
 pygame.init()
 pygame.font.init()
@@ -130,18 +130,7 @@ def draw_msa(start, screen, zoom, filename="msa_usa.csv"):
     for point in points:
         draw_dot(position=point, screen=screen, startcorner=start, zoom=zoom, radius=5, color=(255,0,0))
 
-def load_cities(filename='msa.csv'):
-    data = csv.reader(open(filename, encoding='utf-8'))
-    cities = []
-    for row in data:
-        name = row[0]
-        population = int(row[1])
-        lat = float(row[2])
-        lon = float(row[3])
-        city = City(location=(lat, lon), population=population, color=(255,0,0), name=name)
-        cities.append(city)
-        print(city)
-    return cities
+
 
 def draw_cities(cities : list[City], start, screen, zoom, scale=1):
     for city in cities:
