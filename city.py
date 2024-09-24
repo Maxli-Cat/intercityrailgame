@@ -1,5 +1,6 @@
 import math
 import csv
+import geopy.distance as geodistance
 
 class City:
     def __init__(self, location, population, color, name):
@@ -9,7 +10,7 @@ class City:
         self.name = name
 
     def __str__(self):
-        return f"{self.name}, ({self.lat}, {self.lon}), {self.get_size()}"
+        return f"{self.name}, ({self.lat}, {self.lon}), {self.population}"
 
     def get_location(self) -> (float, float):
         return self.lat, self.lon
@@ -20,6 +21,8 @@ class City:
     def get_size(self, scale=1) -> (float):
         return max(3.0, ((self.population)**(1/3) / 15)) * scale
 
+    def get_distance(self, other) -> float:
+        return geodistance.geodesic(self.get_location(), other.get_location()).miles
 
 def load_cities(filename='msa.csv') -> list[City]:
     data = csv.reader(open(filename, encoding='utf-8'))
@@ -39,3 +42,11 @@ def load_cities(filename='msa.csv') -> list[City]:
         cities.append(city)
         #print(city)
     return cities
+
+def write_cities(cities : list[City], filename='edited.csv') -> None:
+    file = open(filename, 'w', encoding='utf-8', newline='')
+    writer = csv.writer(file)
+    for city in cities:
+        if city.population > 0:
+            writer.writerow([city.name, city.population, city.lat, city.lon])
+    file.close()
