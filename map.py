@@ -151,7 +151,7 @@ def checkbounds(startcorner):
 if __name__ == "__main__":
     lastmouse = (0,0)
     offsetfactors = (1,1)
-    cities = load_cities()
+    cities = load_cities("csa.csv")
     clicked = False
     pygame.display.set_caption("Intercity Rail Game")
     screen.fill((255, 255, 255))
