@@ -133,8 +133,13 @@ def draw_msa(start, screen, zoom, filename="msa_usa.csv"):
 
 
 def draw_cities(cities : list[City], start, screen, zoom, scale=1):
+    zoomdir = {
+        1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0, 5: 1.0, 6: 1.0,
+        7: 1.5, 8: 2.0, 9: 2.5, 10: 3.0, 11: 3.5, 12: 4.0,
+        13: 4.5, 14: 5.0, 15: 5.0, 16: 5.5, 17: 6.0, 18:6.0, 19: 6.0
+    }
     for city in cities:
-        draw_dot(position=city.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=city.get_size(scale=scale), color=city.get_color())
+        draw_dot(position=city.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=city.get_size(scale=scale, min=zoomdir[zoom]), color=city.get_color())
 
 
 def screen_draw(screen, startcorner, zoom, cities = ()):
@@ -151,7 +156,7 @@ def checkbounds(startcorner):
 if __name__ == "__main__":
     lastmouse = (0,0)
     offsetfactors = (1,1)
-    cities = load_cities("incorp_edited.csv")
+    cities = load_cities("merged_wider.csv")
     clicked = False
     pygame.display.set_caption("Intercity Rail Game")
     screen.fill((255, 255, 255))

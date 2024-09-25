@@ -18,13 +18,13 @@ class City:
     def get_color(self) -> (int, int, int):
         return self.color
 
-    def get_size(self, scale=1) -> (float):
-        return max(3.0, ((self.population)**(1/3) / 15)) * scale
+    def get_size(self, scale=1.0, min=1.0) -> (float):
+        return max(min, ((self.population)**(1/3) / 15)) * scale
 
     def get_distance(self, other) -> float:
         return geodistance.geodesic(self.get_location(), other.get_location()).miles
 
-def load_cities(filename='msa.csv') -> list[City]:
+def load_cities(filename='msa.csv', color=None) -> list[City]:
     data = csv.reader(open(filename, encoding='utf-8'))
     cities = []
     for row in data:
