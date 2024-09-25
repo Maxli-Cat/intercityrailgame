@@ -49,8 +49,34 @@ if __name__ == '__main__':
 
     incorp_places = []
     inc_file = csv.reader(open('census\\SUB-IP-EST2023-POP.csv', encoding='utf-8'))
-    inc_file = list(inc_file)[3:-7]
-    print(*inc_file[:5], sep='\n')
-    print(*inc_file[-5:], sep='\n')
+    inc_file = list(inc_file)[4:-6]
+    #print(*inc_file[:5], sep='\n')
+    #print(*inc_file[-5:], sep='\n')
 
-    #csv.writer(open("incorp.csv", "w", encoding='utf-8', newline='')).writerows(places)
+    for line in tqdm(inc_file):
+        name = ((line[0].replace(" city", "").replace(" town", "")
+                .replace(" village", "").replace(" Village of Islands,", ""))
+                .replace(", Moore County metropolitan government", ""))
+        if len(name) < 1: continue
+        population = line[5].replace(",","")
+        population = int(population)
+        if population < 2500: continue
+        try:
+            city, state = name.split(',')
+        except ValueError:
+            print(name)
+            exit()
+        city = city.split("-")[0].strip()
+        state = state.split("-")[0].strip()
+        lookup_name = f"{city}, {state}"
+        #print(lookup_name)
+        try:
+            time.sleep(.1)
+            location = gogle.geocode(lookup_name)
+            places.append((name, population, location.latitude, location.longitude))
+        except:
+            print(f"Could not locate {lookup_name} aka {name}")
+
+
+
+    csv.writer(open("google_incorp.csv", "w", encoding='utf-8', newline='')).writerows(places)
