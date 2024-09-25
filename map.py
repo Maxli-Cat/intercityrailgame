@@ -4,7 +4,7 @@ import time
 import basemap
 from functools import lru_cache
 import csv
-from city import City, load_cities
+from city import *
 
 pygame.init()
 pygame.font.init()
@@ -141,6 +141,7 @@ def draw_cities(cities : list[City], start, screen, zoom, scale=1):
     scale = max(1.0, (zoom - 6) / 3) * scale
     for city in cities:
         draw_dot(position=city.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=city.get_size(scale=scale, min=zoomdir[zoom] ), color=city.get_color())
+        #draw_dot(position=city.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=10, color=city.get_color())
 
 
 def screen_draw(screen, startcorner, zoom, cities = ()):
@@ -157,7 +158,8 @@ def checkbounds(startcorner):
 if __name__ == "__main__":
     lastmouse = (0,0)
     offsetfactors = (1,1)
-    cities = load_cities("merged_and_filtered2.csv")
+    cities = load_cities("merged_and_filtered2.csv") + load_cities("filtered_amtrak_again.csv")
+    write_cities(cities, "USA_bordered.csv")
     clicked = False
     pygame.display.set_caption("Intercity Rail Game")
     screen.fill((255, 255, 255))
