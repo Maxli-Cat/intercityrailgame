@@ -7,6 +7,7 @@ import csv
 from city import *
 import locale
 locale.setlocale(locale.LC_ALL, '')
+NATIONALISM = False
 
 pygame.init()
 pygame.font.init()
@@ -177,6 +178,13 @@ if __name__ == "__main__":
     lastmouse = (0,0)
     offsetfactors = (1,1)
     cities = load_cities("USA_bordered.csv")
+    if NATIONALISM:
+        cities += load_cities("US_ONLY_North.csv")
+        cities += load_cities("US_ONLY_South.csv")
+    else:
+        cities += load_cities("US_CAN_BORDER.csv")
+        cities += load_cities("US_MEX_Border.csv")
+
     cities.sort(key=lambda x:x.population, reverse=False)
     clicked = False
     pygame.display.set_caption("Intercity Rail Game")

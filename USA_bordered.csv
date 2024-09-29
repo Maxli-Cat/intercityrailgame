@@ -46,7 +46,6 @@
 "Bozeman, MT Metro Area",126409,45.67931189999999,-111.037259
 "Bremerton-Silverdale-Port Orchard, WA Metro Area",277658,47.5650067,-122.6269768
 "Bridgeport-Stamford-Danbury, CT Metro Area",951558,41.1792258,-73.1894384
-"Brownsville-Harlingen, TX Metro Area",426710,25.9017472,-97.4974838
 "Brunswick-St Simons, GA Metro Area",116074,31.1510919,-81.4878157
 "Buffalo-Cheektowaga, NY Metro Area",1155604,42.88644679999999,-78.8783689
 "Burlington, NC Metro Area",179165,36.0959767,-79.43716049999999
@@ -91,7 +90,6 @@
 "Deltona-Daytona Beach-Ormond Beach, FL Metro Area",721796,28.9005446,-81.26367379999999
 "Denver-Aurora-Centennial, CO Metro Area",3005131,39.7392358,-104.990251
 "Des Moines-West Des Moines, IA Metro Area",737164,41.5868417,-93.6249522
-"Detroit-Warren-Dearborn, MI Metro Area",4342304,42.331427,-83.0457538
 "Dothan, AL Metro Area",153349,31.2232313,-85.3904888
 "Dover, DE Metro Area",189789,39.158168,-75.5243682
 "Dubuque, IA Metro Area",98887,42.5063629,-90.6677479
@@ -103,7 +101,6 @@
 "Elizabethtown, KY Metro Area",127576,37.7009419,-85.8676309
 "Elkhart-Goshen, IN Metro Area",206409,41.6873832,-85.973517
 "Elmira, NY Metro Area",81325,42.0897965,-76.8077338
-"El Paso, TX Metro Area",873331,31.7618778,-106.4850217
 "Enid, OK Metro Area",62023,36.3955891,-97.8783911
 "Erie, PA Metro Area",267571,42.12922409999999,-80.085059
 "Eugene-Springfield, OR Metro Area",381181,44.0520691,-123.0867536
@@ -191,7 +188,6 @@
 "Lakeland-Winter Haven, FL Metro Area",818330,28.0394654,-81.9498042
 "Lancaster, PA Metro Area",558589,40.0378755,-76.3055144
 "Lansing-East Lansing, MI Metro Area",473177,42.732535,-84.5555347
-"Laredo, TX Metro Area",269148,27.5035613,-99.5075519
 "Las Cruces, NM Metro Area",225210,32.3199396,-106.7636538
 "Las Vegas-Henderson-North Las Vegas, NV Metro Area",2336573,36.171563,-115.1391009
 "Lawrence, KS Metro Area",120553,38.9716689,-95.2352501
@@ -217,7 +213,6 @@
 "Manhattan, KS Metro Area",132831,39.18360819999999,-96.57166939999999
 "Mankato, MN Metro Area",104248,44.1661456,-94.0055647
 "Mansfield, OH Metro Area",125064,40.75839,-82.5154471
-"McAllen-Edinburg-Mission, TX Metro Area",898471,26.2034071,-98.23001239999999
 "Medford, OR Metro Area",220768,42.3265152,-122.8755949
 "Memphis, TN-MS-AR Metro Area",1335674,35.1495343,-90.0489801
 "Merced, CA Metro Area",291920,37.3021632,-120.4829677
@@ -305,11 +300,9 @@
 "Salt Lake City-Murray, UT Metro Area",1267864,40.7607793,-111.8910474
 "San Angelo, TX Metro Area",120606,31.4637723,-100.4370375
 "San Antonio-New Braunfels, TX Metro Area",2703999,29.4251905,-98.4945922
-"San Diego-Chula Vista-Carlsbad, CA Metro Area",3269973,32.715738,-117.1610838
 "Sandusky, OH Metro Area",113838,41.4561754,-82.71168209999999
 "San Francisco-Oakland-Fremont, CA Metro Area",4566961,37.7749295,-122.4194155
 "San Jose-Sunnyvale-Santa Clara, CA Metro Area",1945767,37.33874,-121.8852525
-"San Luis Obispo-Paso Robles, CA Metro Area",281639,35.2827524,-120.6596156
 "Santa Cruz-Watsonville, CA Metro Area",261547,36.9741171,-122.0307963
 "Santa Fe, NM Metro Area",155956,35.6869752,-105.937799
 "Santa Maria-Santa Barbara, CA Metro Area",441257,34.9530337,-120.4357191
@@ -731,7 +724,6 @@
 "Newport, OR Micro Area",50821,44.6367836,-124.0534505
 "Newport, TN Micro Area",37404,35.9670412,-83.1876578
 "New Ulm, MN Micro Area",25628,44.3144394,-94.45930179999999
-"Nogales, AZ Micro Area",49158,31.3403775,-110.9342532
 "Norfolk, NE Micro Area",48782,42.0327168,-97.41681709999999
 "North Platte, NE Micro Area",34020,41.1402759,-100.7601454
 "North Wilkesboro, NC Micro Area",66013,36.1584651,-81.1475841
@@ -814,7 +806,6 @@
 "Salina, KS Micro Area",58916,38.8402805,-97.61142369999999
 "Sandpoint, ID Micro Area",52547,48.276577,-116.553465
 "Sanford, NC Micro Area",67059,35.4798757,-79.1802994
-"Sault Ste Marie, MI Micro Area",36264,46.49771150000001,-84.3475876
 "Sayre, PA Micro Area",59695,41.9789631,-76.51549899999999
 "Scottsbluff, NE Micro Area",36373,41.8666341,-103.6671662
 "Scottsboro, AL Micro Area",53467,34.6723069,-86.03414629999999
@@ -1265,7 +1256,6 @@
 "Winnfield, Louisiana",3927,31.9254413,-92.6395931
 "Winnsboro, Louisiana",4665,32.1632079,-91.720681
 "Belfast, Maine",7069,44.4259092,-69.0064234
-"Calais, Maine",3126,45.1889633,-67.27860380000001
 "Caribou, Maine",7431,46.8639995,-67.9980365
 "Presque Isle, Maine",8677,46.68115299999999,-68.0158615
 "Rockland, Maine",7031,44.1036914,-69.1089293
@@ -1295,7 +1285,6 @@
 "Ironwood, Michigan",4957,46.4546698,-90.1710081
 "Manistique, Michigan",2860,45.9577506,-86.2462523
 "New Baltimore, Michigan",24480,42.6811436,-82.7368616
-"Port Huron, Michigan",44187,42.9708634,-82.42491419999999
 "Rogers City, Michigan",2909,45.4214024,-83.8183303
 "Romeo, Michigan",3731,42.802808,-83.0129874
 "Sandusky, Michigan",2685,43.4202989,-82.8296572
@@ -1823,7 +1812,6 @@ Middlebury,9152,44.0153371,-73.16734
 Mineola,5017,32.6631884,-95.4882896
 Montgomery,1235,38.1803833,-81.3284452
 Newton ,18392,38.0466779,-97.3450365
-Niagara Falls,47993,43.0962143,-79.0377388
 Old Orchard Beach,8423,43.5177659,-70.3772911
 Old Saybrook,10506,41.2960159,-72.3845301
 Parkesburg,3934,39.9594013,-75.9168482

@@ -30,10 +30,12 @@ def load_cities(filename='msa.csv', color=None) -> list[City]:
     for row in data:
         name = row[0]
         population = int(row[1])
-        if population > 900000:
+        if population > 1000000:
             color = (255,0,0)
         elif population > 100000:
             color = (255, 127, 0)
+        elif population > 10000:
+            color = (127, 0, 255)
         else:
             color = (0,0,255)
         lat = float(row[2])
