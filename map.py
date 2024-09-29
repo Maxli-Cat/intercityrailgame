@@ -5,11 +5,13 @@ import basemap
 from functools import lru_cache
 import csv
 from city import *
+import locale
+locale.setlocale(locale.LC_ALL, '')
 
 pygame.init()
 pygame.font.init()
 
-font = pygame.font.SysFont("Arial", 30)
+font = pygame.font.SysFont("Arial", 18)
 small = pygame.font.SysFont("Courier New", 15)
 FLAGS = pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE
 SIZE = WIDTH, LENGTH = (900, 600)
@@ -41,7 +43,6 @@ def get_images_cache(zoom, x, y):
     image = pygame.image.load(filename).convert()
     tile_surfaces[key] = image
     return image
-
 
 def calc_offset_factors(lat, lon, zoom, aspect=1.0):
     tile = basemap.get_tile_cords(lat=lat, lon=lon, zoom=zoom)
@@ -130,8 +131,6 @@ def draw_msa(start, screen, zoom, filename="msa_usa.csv"):
     for point in points:
         draw_dot(position=point, screen=screen, startcorner=start, zoom=zoom, radius=5, color=(255,0,0))
 
-
-
 def draw_cities(cities : list[City], start, screen, zoom, scale=1):
     zoomdir = {
         1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0, 5: 1.0, 6: 1.0,
@@ -140,8 +139,27 @@ def draw_cities(cities : list[City], start, screen, zoom, scale=1):
     }
     scale = max(1.0, (zoom - 6) / 3) * scale
     for city in cities:
+        if zoom < 9:
+            draw_dot(position=city.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=city.get_size(scale=scale, min=zoomdir[zoom] )+1, color=(255,255,255))
         draw_dot(position=city.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=city.get_size(scale=scale, min=zoomdir[zoom] ), color=city.get_color())
         #draw_dot(position=city.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=10, color=city.get_color())
+        if zoom > 8:
+            name = font.render(f"{city.name.split(',')[0]}", True, (5,5,5))
+            name_size = name.get_size()
+            namex, namey = basemap.real_coords_to_map_coords_fixed(*city.get_location(), startcorner=startcorner, zoom=zoom)
+            namey += city.get_size(scale=scale, min=zoomdir[zoom] )
+            namex -= name_size[0]//2
+            pygame.draw.rect(screen, (250, 250, 250), ((namex, namey), name_size))
+            screen.blit(name, (namex, namey))
+        if zoom > 9:
+            pop = font.render(f"Population: {city.population:n}", True, (10,10,10))
+            pop_size = pop.get_size()
+            popx, popy = basemap.real_coords_to_map_coords_fixed(*city.get_location(), startcorner=startcorner, zoom=zoom)
+            popy += city.get_size(scale=scale, min=zoomdir[zoom] ) + name_size[1]
+            popx -= pop_size[0]//2
+            pygame.draw.rect(screen, (250, 250, 250), ((popx, popy), pop_size))
+            screen.blit(pop, (popx, popy))
+
 
 
 def screen_draw(screen, startcorner, zoom, cities = ()):
@@ -158,8 +176,8 @@ def checkbounds(startcorner):
 if __name__ == "__main__":
     lastmouse = (0,0)
     offsetfactors = (1,1)
-    cities = load_cities("merged_and_filtered2.csv") + load_cities("filtered_amtrak_again.csv")
-    write_cities(cities, "USA_bordered.csv")
+    cities = load_cities("USA_bordered.csv")
+    cities.sort(key=lambda x:x.population, reverse=False)
     clicked = False
     pygame.display.set_caption("Intercity Rail Game")
     screen.fill((255, 255, 255))

@@ -55,7 +55,7 @@ def get_tile(z, x, y, basepath="tiles"):
         return
     filetime = os.path.getmtime(filename)
     age = time.time() - filetime
-    if age > 604800:
+    if age > (60 * 60 * 24 * 30):
         download_tile(z, x, y, basepath)
 
 def print_cache_stats(undownloaded):

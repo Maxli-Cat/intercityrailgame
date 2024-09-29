@@ -32,7 +32,7 @@ def load_cities(filename='msa.csv', color=None) -> list[City]:
         population = int(row[1])
         if population > 900000:
             color = (255,0,0)
-        elif population > 200000:
+        elif population > 100000:
             color = (255, 127, 0)
         else:
             color = (0,0,255)

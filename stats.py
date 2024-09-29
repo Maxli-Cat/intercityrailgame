@@ -13,7 +13,11 @@ gogle = GoogleV3(api_key=api_keys.google, user_agent="Intercity Rail Game")
 
 
 if __name__ == '__main__':
-    places = []
+    places = load_cities("USA_bordered.csv")
+    populations = [i.population for i in places]
+    print(min(populations), max(populations))
+    plt.hist(populations, bins=500)
+    plt.show()
 
     #cbsas = []
     #cbsa_file_1 = csv.reader(open('census\\cbsa-met-est2023-pop.csv', encoding='utf-8'))
@@ -46,37 +50,37 @@ if __name__ == '__main__':
     #    except:
     #        print(f"Could not locate {lookup_name} aka {name}")
     #        exit()
-
-    incorp_places = []
-    inc_file = csv.reader(open('census\\SUB-IP-EST2023-POP.csv', encoding='utf-8'))
-    inc_file = list(inc_file)[4:-6]
-    #print(*inc_file[:5], sep='\n')
-    #print(*inc_file[-5:], sep='\n')
-
-    for line in tqdm(inc_file):
-        name = ((line[0].replace(" city", "").replace(" town", "")
-                .replace(" village", "").replace(" Village of Islands,", ""))
-                .replace(", Moore County metropolitan government", ""))
-        if len(name) < 1: continue
-        population = line[5].replace(",","")
-        population = int(population)
-        if population < 2500: continue
-        try:
-            city, state = name.split(',')
-        except ValueError:
-            print(name)
-            exit()
-        city = city.split("-")[0].strip()
-        state = state.split("-")[0].strip()
-        lookup_name = f"{city}, {state}"
-        #print(lookup_name)
-        try:
-            time.sleep(.1)
-            location = gogle.geocode(lookup_name)
-            places.append((name, population, location.latitude, location.longitude))
-        except:
-            print(f"Could not locate {lookup_name} aka {name}")
-
-
-
-    csv.writer(open("google_incorp.csv", "w", encoding='utf-8', newline='')).writerows(places)
+#
+#    incorp_places = []
+#    inc_file = csv.reader(open('census\\SUB-IP-EST2023-POP.csv', encoding='utf-8'))
+#    inc_file = list(inc_file)[4:-6]
+#    #print(*inc_file[:5], sep='\n')
+#    #print(*inc_file[-5:], sep='\n')
+#
+#    for line in tqdm(inc_file):
+#        name = ((line[0].replace(" city", "").replace(" town", "")
+#                .replace(" village", "").replace(" Village of Islands,", ""))
+#                .replace(", Moore County metropolitan government", ""))
+#        if len(name) < 1: continue
+#        population = line[5].replace(",","")
+#        population = int(population)
+#        if population < 2500: continue
+#        try:
+#            city, state = name.split(',')
+#        except ValueError:
+#            print(name)
+#            exit()
+#        city = city.split("-")[0].strip()
+#        state = state.split("-")[0].strip()
+#        lookup_name = f"{city}, {state}"
+#        #print(lookup_name)
+#        try:
+#            time.sleep(.1)
+#            location = gogle.geocode(lookup_name)
+#            places.append((name, population, location.latitude, location.longitude))
+#        except:
+#            print(f"Could not locate {lookup_name} aka {name}")
+#
+#
+#
+#    csv.writer(open("google_incorp.csv", "w", encoding='utf-8', newline='')).writerows(places)
