@@ -211,7 +211,10 @@ if __name__ == "__main__":
         load_cities("US_MEX_Border.csv")
 
     city_positions = buildcityposlist(CITIES, startcorner, zoom_factor, screen.get_size())
-    load_connections(CITIES)
+    try:
+        load_connections(CITIES)
+    except FileNotFoundError:
+        pass
     #print(*[i[1] for i in city_positions], sep='\n')
 
     CITIES.sort(key=lambda x:x.population, reverse=False)
@@ -228,6 +231,8 @@ if __name__ == "__main__":
                 save_connections(CITIES)
                 print(f"{cache_hits=}, {cache_misses=}, {100 * (cache_hits/(cache_hits+cache_misses))}%")
                 basemap.print_cache_stats(cache_misses)
+                print("\n\n")
+                print_routes()
                 pygame.quit()
                 sys.exit()
 
@@ -298,6 +303,11 @@ if __name__ == "__main__":
                             lastclicked = None
                     dragged = False
                     screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
+
+                elif event.button == 3:
+                    city_positions = buildcityposlist(CITIES, startcorner, zoom_factor, screen.get_size())
+                    if city := check_city_clicked(city_positions, pygame.mouse.get_pos(), zoom=zoom_factor):
+                        build_routes(city)
 
             if clicked:
                 newpos = pygame.mouse.get_pos()

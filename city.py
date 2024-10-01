@@ -4,6 +4,7 @@ import geopy.distance as geodistance
 import locale
 INDEX = 0
 G=0.0000003
+from queue import SimpleQueue, Queue
 
 locale.setlocale(locale.LC_ALL, '')
 
@@ -21,7 +22,7 @@ class City:
         self.population = population
         self.color = color
         self.name = name
-        self.routes = []
+        self.connections = set()
         CITIES.append(self)
 
     def __str__(self):
@@ -56,9 +57,12 @@ def get_connection(city1: City, city2: City):
 def connect_cities(city1 : City, city2 : City) -> None:
     if con := get_connection(city1, city2):
         SEGMENTS.remove(con)
+        city1.connections.remove(con)
+        city2.connections.remove(con)
     else:
-        Segment(city1, city2)
-
+        s = Segment(city1, city2)
+        city1.connections.add(s)
+        city2.connections.add(s)
 
 
 def save_connections(cities : list[City], filename : str = "connections.save"):
@@ -123,10 +127,79 @@ class Segment:
         SEGMENTS.append(self)
 
     def __str__(self) -> str:
-        return f"{self.start.name} to {self.end.name}, {self.distance:n} miles"
+        return f"{self.start.name} to {self.end.name}, {round(self.distance, 1):n} miles"
 
 
 class Route:
-    def __init__(self, start: City, end: City, points : list[City]) -> None:
+    def __init__(self, start: City, end: City, segments : list[Segment]) -> None:
         self.start = start
         self.end = end
+        self.segments = segments
+
+    def __str__(self):
+        return f"{self.start.name} to {self.end.name}, cost {round(self.get_cost()):n} hours"
+
+    def get_cost(self):
+        return sum([i.cost for i in self.segments])
+
+
+def route_exists(routes: list[Route], city1: City, city2: City) -> Route | bool:
+    for route in routes:
+        if route.start == city1 and route.end == city2:
+            return route
+        elif route.start == city2 and route.end == city1:
+            return route
+    return False
+
+
+def build_routes(city: City):
+    global ROUTES
+    cities = SimpleQueue()
+    seen_cities = set()
+    cities.put((city, []))
+
+    while not cities.empty():
+        workingcity, workingpath = cities.get()
+        seen_cities.add(workingcity)
+        print(f"Processing {workingcity.name} via")
+        for segment in workingpath:
+            print(f" - {segment}")
+
+        for segment in workingcity.connections:
+            if segment.start == workingcity:
+                target = segment.end
+            elif segment.end == workingcity:
+                target = segment.start
+            else: assert False
+            if target not in seen_cities:
+                cities.put((target, workingpath + [segment]))
+
+        if city != workingcity:
+            rte = Route(city, workingcity, workingpath)
+            print(rte)
+
+            if existing := route_exists(ROUTES, city, workingcity):
+                if rte.get_cost() < existing.get_cost():
+                    print(f"Replacing {existing} with {rte}")
+                    ROUTES.remove(existing)
+                    ROUTES.append(rte)
+                else:
+                    print(f"Not replacing {existing} with {rte}")
+            else:
+                ROUTES.append(rte)
+        print()
+
+
+def print_route(route: Route):
+    print(f"Starting at {route.start.name}, Ending at {route.end.name}, costing {route.get_cost():n}")
+    for segment in route.segments:
+        print(f" - {segment}")
+    print(f"")
+
+def print_routes(routes: list[Route] = None):
+    if routes is None:
+        global ROUTES
+        routes = ROUTES[:]
+    routes.sort(key=lambda route: route.get_cost())
+    for route in routes:
+        print_route(route)
