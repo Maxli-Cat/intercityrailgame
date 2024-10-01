@@ -2,17 +2,22 @@ import math
 import csv
 import geopy.distance as geodistance
 import locale
+INDEX = 0
 
 locale.setlocale(locale.LC_ALL, '')
 
 
 class City:
     def __init__(self, location, population, color, name):
+        global INDEX
+        self.index = INDEX
+        INDEX += 1
         self.lat, self.lon = location
         self.population = population
         self.color = color
         self.name = name
         self.connections = []
+        self.routes = []
 
     def __str__(self):
         return f"{self.name}, ({self.lat}, {self.lon}), {self.population:n}"
@@ -42,6 +47,32 @@ def connect_cities(city1 : City, city2 : City) -> None:
     else:
         city1.connections.append(city2)
         city2.connections.append(city1)
+
+def save_connections(cities : list[City], filename : str = "connections.save"):
+    file = open(filename, "w", newline='')
+    writer = csv.writer(file)
+    for city in cities:
+        for connection in city.connections:
+            if city.name < connection.name:
+                writer.writerow([city.name, connection.name])
+            elif city.name == connection.name:
+                print(f"Error at {city.name}, {connection.name}")
+                assert False
+
+def load_connections(cities : list[City], filename : str = "connections.save"):
+    data = csv.reader(open(filename))
+    for row in data:
+        try:
+            first_city = [i for i in cities if i.name == row[0]][0]
+        except IndexError:
+            print(f"Cannot find {row[0]}")
+            continue
+        try:
+            second_city = [i for i in cities if i.name == row[1]][0]
+        except IndexError:
+            print(f"Cannot find {row[1]}")
+            continue
+        connect_cities(first_city, second_city)
 
 def load_cities(filename='msa.csv', color=None) -> list[City]:
     data = csv.reader(open(filename, encoding='utf-8'))

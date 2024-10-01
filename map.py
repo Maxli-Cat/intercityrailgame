@@ -141,7 +141,7 @@ def draw_cities(cities : list[City], start, screen, zoom, scale=1, highlighted :
         draw_dot(position=city.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=city.get_size(scale=scale, min=zoom ), color=city.get_color())
         #draw_dot(position=city.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=10, color=city.get_color())
         if zoom > 8:
-            name = font.render(f"{city.name.split(',')[0]}", True, (5,5,5))
+            name = font.render(f"{city.name.split(',')[0]},   #{city.index}", True, (5,5,5))
             name_size = name.get_size()
             namex, namey = basemap.real_coords_to_map_coords_fixed(*city.get_location(), startcorner=startcorner, zoom=zoom)
             namey += city.get_size(scale=scale, min=zoom )
@@ -211,6 +211,7 @@ if __name__ == "__main__":
         cities += load_cities("US_MEX_Border.csv")
 
     city_positions = buildcityposlist(cities, startcorner, zoom_factor, screen.get_size())
+    load_connections(cities)
     #print(*[i[1] for i in city_positions], sep='\n')
 
     cities.sort(key=lambda x:x.population, reverse=False)
@@ -224,6 +225,7 @@ if __name__ == "__main__":
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                save_connections(cities)
                 print(f"{cache_hits=}, {cache_misses=}, {100 * (cache_hits/(cache_hits+cache_misses))}%")
                 basemap.print_cache_stats(cache_misses)
                 pygame.quit()

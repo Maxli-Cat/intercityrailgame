@@ -2,3 +2,4 @@
 password.txt
 /cache/
 api_keys.py
+connections.save
