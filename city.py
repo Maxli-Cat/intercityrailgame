@@ -45,8 +45,19 @@ class City:
     def get_distance(self, other) -> float:
         return geodistance.geodesic(self.get_location(), other.get_location()).miles
 
+def get_connection(city1: City, city2: City):
+    for segment in SEGMENTS:
+        if segment.start == city1 and segment.end == city2:
+            return segment
+        elif segment.start == city2 and segment.end == city1:
+            return segment
+    return False
+
 def connect_cities(city1 : City, city2 : City) -> None:
-    Segment(city1, city2)
+    if con := get_connection(city1, city2):
+        SEGMENTS.remove(con)
+    else:
+        Segment(city1, city2)
 
 
 
