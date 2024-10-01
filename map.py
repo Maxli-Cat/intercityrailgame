@@ -159,19 +159,19 @@ def draw_cities(cities : list[City], start, screen, zoom, scale=1, highlighted :
     if highlighted is not None:
         draw_dot(position=highlighted.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=10, color=(255,255,0))
 
-def draw_links(cities : list[City], start, screen, zoom, scale=3):
-    for city in cities:
-        for link in city.connections:
-            if city.population > link.population:
-                start = basemap.real_coords_to_map_coords_fixed(*city.get_location(), startcorner=startcorner, zoom=zoom)
-                end = basemap.real_coords_to_map_coords_fixed(*link.get_location(), startcorner=startcorner, zoom=zoom)
-                pygame.draw.line(screen, (0, 0, 0), start, end, width=scale)
+def draw_links( start, screen, zoom, scale=3):
+    for segment in SEGMENTS:
+        city = segment.start
+        link = segment.end
+        start = basemap.real_coords_to_map_coords_fixed(*city.get_location(), startcorner=startcorner, zoom=zoom)
+        end = basemap.real_coords_to_map_coords_fixed(*link.get_location(), startcorner=startcorner, zoom=zoom)
+        pygame.draw.line(screen, (0, 0, 0), start, end, width=scale*segment.utilization)
 
 def screen_draw(screen, startcorner, zoom, cities = (), highlighted = None):
     draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom)
     #draw_msa(start=startcorner, screen=screen, zoom=zoom, filename="msa.csv")
     draw_cities(cities=cities, start=startcorner, zoom=zoom, screen=screen, highlighted=highlighted)
-    draw_links(cities=cities, start=startcorner, zoom=zoom, screen=screen)
+    draw_links(start=startcorner, zoom=zoom, screen=screen)
     draw_attribution(screen)
 
 def checkbounds(startcorner):
@@ -202,37 +202,37 @@ if __name__ == "__main__":
     offsetfactors = (1,1)
     lastclicked = None
 
-    cities = load_cities("USA_bordered.csv")
+    load_cities("USA_bordered.csv")
     if NATIONALISM:
-        cities += load_cities("US_ONLY_North.csv")
-        cities += load_cities("US_ONLY_South.csv")
+        load_cities("US_ONLY_North.csv")
+        load_cities("US_ONLY_South.csv")
     else:
-        cities += load_cities("US_CAN_BORDER.csv")
-        cities += load_cities("US_MEX_Border.csv")
+        load_cities("US_CAN_BORDER.csv")
+        load_cities("US_MEX_Border.csv")
 
-    city_positions = buildcityposlist(cities, startcorner, zoom_factor, screen.get_size())
-    load_connections(cities)
+    city_positions = buildcityposlist(CITIES, startcorner, zoom_factor, screen.get_size())
+    load_connections(CITIES)
     #print(*[i[1] for i in city_positions], sep='\n')
 
-    cities.sort(key=lambda x:x.population, reverse=False)
+    CITIES.sort(key=lambda x:x.population, reverse=False)
     clicked = False
     pygame.display.set_caption("Intercity Rail Game")
     screen.fill((255, 255, 255))
-    screen_draw(screen, startcorner, zoom=zoom_factor, cities=cities, highlighted=lastclicked)
+    screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
     pygame.display.flip()
 
     while True:
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                save_connections(cities)
+                save_connections(CITIES)
                 print(f"{cache_hits=}, {cache_misses=}, {100 * (cache_hits/(cache_hits+cache_misses))}%")
                 basemap.print_cache_stats(cache_misses)
                 pygame.quit()
                 sys.exit()
 
             elif event.type == pygame.VIDEORESIZE or event.type == pygame.VIDEOEXPOSE:
-                screen_draw(screen, startcorner, zoom=zoom_factor, cities=cities, highlighted=lastclicked)
+                screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
 
             elif event.type == pygame.MOUSEWHEEL:
                 screen.fill((255, 255, 255))
@@ -241,7 +241,7 @@ if __name__ == "__main__":
                         startcorner = zoom_down(startcorner, pygame.display.get_surface().get_size(), zoom=zoom_factor)
                     else:
                         startcorner = zoom_up(startcorner, pygame.display.get_surface().get_size(), zoom=zoom_factor)
-                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=cities, highlighted=lastclicked)
+                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
 
                 if zoom_factor > 19:
                     zoom_factor = 19
@@ -249,28 +249,28 @@ if __name__ == "__main__":
                 if event.y > 0 or zoom_factor > 5:
                     zoom_factor += event.y
                     move_factor = 40 / (2 ** zoom_factor)
-                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=cities, highlighted=lastclicked)
+                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     startcorner = (startcorner[0] + move_factor, startcorner[1])
                     startcorner = checkbounds(startcorner)
-                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=cities, highlighted=lastclicked)
+                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
 
                 elif event.key == pygame.K_DOWN:
                     startcorner = (startcorner[0] - move_factor, startcorner[1])
                     startcorner = checkbounds(startcorner)
-                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=cities, highlighted=lastclicked)
+                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
 
                 elif event.key == pygame.K_LEFT:
                     startcorner = (startcorner[0], startcorner[1] - move_factor)
                     startcorner = checkbounds(startcorner)
-                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=cities, highlighted=lastclicked)
+                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
 
                 elif event.key == pygame.K_RIGHT:
                     startcorner = (startcorner[0], startcorner[1] + move_factor)
                     startcorner = checkbounds(startcorner)
-                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=cities, highlighted=lastclicked)
+                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
@@ -285,7 +285,7 @@ if __name__ == "__main__":
                 if event.button == 1:
                     clicked = False
                     if not dragged:
-                        city_positions = buildcityposlist(cities, startcorner, zoom_factor, screen.get_size())
+                        city_positions = buildcityposlist(CITIES, startcorner, zoom_factor, screen.get_size())
                         if city := check_city_clicked(city_positions, pygame.mouse.get_pos(), zoom=zoom_factor):
                             if lastclicked is None:
                                 lastclicked = city
@@ -297,7 +297,7 @@ if __name__ == "__main__":
                         else:
                             lastclicked = None
                     dragged = False
-                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=cities, highlighted=lastclicked)
+                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
 
             if clicked:
                 newpos = pygame.mouse.get_pos()
@@ -309,4 +309,4 @@ if __name__ == "__main__":
                 lastmouse = newpos
                 startcorner = (startcorner[0] - deltax, startcorner[1] - deltay)
                 startcorner = checkbounds(startcorner)
-                screen_draw(screen, startcorner, zoom=zoom_factor, cities=cities, highlighted=lastclicked)
+                screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)

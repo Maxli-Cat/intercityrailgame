@@ -3,21 +3,26 @@ import csv
 import geopy.distance as geodistance
 import locale
 INDEX = 0
+G=0.0000003
 
 locale.setlocale(locale.LC_ALL, '')
+
+CITIES = []
+SEGMENTS = []
+ROUTES = []
 
 
 class City:
     def __init__(self, location, population, color, name):
-        global INDEX
+        global INDEX, CITIES
         self.index = INDEX
         INDEX += 1
         self.lat, self.lon = location
         self.population = population
         self.color = color
         self.name = name
-        self.connections = []
         self.routes = []
+        CITIES.append(self)
 
     def __str__(self):
         return f"{self.name}, ({self.lat}, {self.lon}), {self.population:n}"
@@ -41,23 +46,17 @@ class City:
         return geodistance.geodesic(self.get_location(), other.get_location()).miles
 
 def connect_cities(city1 : City, city2 : City) -> None:
-    if city1 in city2.connections:
-        city1.connections.remove(city2)
-        city2.connections.remove(city1)
-    else:
-        city1.connections.append(city2)
-        city2.connections.append(city1)
+    Segment(city1, city2)
+
+
 
 def save_connections(cities : list[City], filename : str = "connections.save"):
     file = open(filename, "w", newline='')
     writer = csv.writer(file)
-    for city in cities:
-        for connection in city.connections:
-            if city.name < connection.name:
-                writer.writerow([city.name, connection.name])
-            elif city.name == connection.name:
-                print(f"Error at {city.name}, {connection.name}")
-                assert False
+    for segment in SEGMENTS:
+        city = segment.start
+        connection = segment.end
+        writer.writerow([city.name, connection.name])
 
 def load_connections(cities : list[City], filename : str = "connections.save"):
     data = csv.reader(open(filename))
@@ -74,9 +73,8 @@ def load_connections(cities : list[City], filename : str = "connections.save"):
             continue
         connect_cities(first_city, second_city)
 
-def load_cities(filename='msa.csv', color=None) -> list[City]:
+def load_cities(filename='msa.csv', color=None) -> None:
     data = csv.reader(open(filename, encoding='utf-8'))
-    cities = []
     for row in data:
         name = row[0]
         population = int(row[1])
@@ -91,9 +89,8 @@ def load_cities(filename='msa.csv', color=None) -> list[City]:
         lat = float(row[2])
         lon = float(row[3])
         city = City(location=(lat, lon), population=population, color=color, name=name)
-        cities.append(city)
         #print(city)
-    return cities
+    #return cities
 
 def write_cities(cities : list[City], filename='edited.csv') -> None:
     file = open(filename, 'w', encoding='utf-8', newline='')
@@ -102,3 +99,23 @@ def write_cities(cities : list[City], filename='edited.csv') -> None:
         if city.population > 0:
             writer.writerow([city.name, city.population, city.lat, city.lon])
     file.close()
+
+class Segment:
+    def __init__(self, start : City, end : City, speed = 1, capacity = float('inf')) -> None:
+        global SEGMENTS
+        self.start = start
+        self.end = end
+        self.distance = geodistance.geodesic(start.get_location(), end.get_location()).miles
+        self.cost = self.distance / speed
+        self.capacity = capacity
+        self.utilization = 1
+        SEGMENTS.append(self)
+
+    def __str__(self) -> str:
+        return f"{self.start.name} to {self.end.name}, {self.distance:n} miles"
+
+
+class Route:
+    def __init__(self, start: City, end: City, points : list[City]) -> None:
+        self.start = start
+        self.end = end
