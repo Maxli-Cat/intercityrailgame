@@ -159,19 +159,19 @@ def draw_cities(cities : list[City], start, screen, zoom, scale=1, highlighted :
     if highlighted is not None:
         draw_dot(position=highlighted.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=10, color=(255,255,0))
 
-def draw_links( start, screen, zoom, scale=3):
+def draw_links( start, screen, zoom, scale=1):
     for segment in SEGMENTS:
         city = segment.start
         link = segment.end
         start = basemap.real_coords_to_map_coords_fixed(*city.get_location(), startcorner=startcorner, zoom=zoom)
         end = basemap.real_coords_to_map_coords_fixed(*link.get_location(), startcorner=startcorner, zoom=zoom)
-        pygame.draw.line(screen, (0, 0, 0), start, end, width=scale*segment.utilization)
+        pygame.draw.line(screen, (0, 0, 0), start, end, width=segment.get_width(scale=scale))
 
 def screen_draw(screen, startcorner, zoom, cities = (), highlighted = None):
     draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom)
     #draw_msa(start=startcorner, screen=screen, zoom=zoom, filename="msa.csv")
-    draw_cities(cities=cities, start=startcorner, zoom=zoom, screen=screen, highlighted=highlighted)
     draw_links(start=startcorner, zoom=zoom, screen=screen)
+    draw_cities(cities=cities, start=startcorner, zoom=zoom, screen=screen, highlighted=highlighted)
     draw_attribution(screen)
 
 def checkbounds(startcorner):
@@ -231,8 +231,6 @@ if __name__ == "__main__":
                 save_connections(CITIES)
                 print(f"{cache_hits=}, {cache_misses=}, {100 * (cache_hits/(cache_hits+cache_misses))}%")
                 basemap.print_cache_stats(cache_misses)
-                print("\n\n")
-                print_routes()
                 pygame.quit()
                 sys.exit()
 
@@ -275,6 +273,10 @@ if __name__ == "__main__":
                 elif event.key == pygame.K_RIGHT:
                     startcorner = (startcorner[0], startcorner[1] + move_factor)
                     startcorner = checkbounds(startcorner)
+                    screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
+                elif event.key == pygame.K_RETURN:
+                    build_all_routes()
+                    build_traffic_values()
                     screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
 
             elif event.type == pygame.MOUSEBUTTONDOWN:

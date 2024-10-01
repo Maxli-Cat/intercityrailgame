@@ -5,6 +5,7 @@ import locale
 INDEX = 0
 G=0.0000003
 from queue import SimpleQueue, Queue
+from functools import lru_cache
 
 locale.setlocale(locale.LC_ALL, '')
 
@@ -129,6 +130,9 @@ class Segment:
     def __str__(self) -> str:
         return f"{self.start.name} to {self.end.name}, {round(self.distance, 1):n} miles"
 
+    def get_width(self, scale=1):
+        return max(int(math.sqrt(self.utilization * scale)), 1)
+
 
 class Route:
     def __init__(self, start: City, end: City, segments : list[Segment]) -> None:
@@ -139,9 +143,13 @@ class Route:
     def __str__(self):
         return f"{self.start.name} to {self.end.name}, cost {round(self.get_cost()):n} hours"
 
+    @lru_cache()
     def get_cost(self):
         return sum([i.cost for i in self.segments])
 
+    @lru_cache()
+    def get_utilization(self):
+        return (G * self.start.population * self.end.population) / self.get_cost() ** 2
 
 def route_exists(routes: list[Route], city1: City, city2: City) -> Route | bool:
     for route in routes:
@@ -161,9 +169,9 @@ def build_routes(city: City):
     while not cities.empty():
         workingcity, workingpath = cities.get()
         seen_cities.add(workingcity)
-        print(f"Processing {workingcity.name} via")
-        for segment in workingpath:
-            print(f" - {segment}")
+        #print(f"Processing {workingcity.name} via")
+        #for segment in workingpath:
+        #    print(f" - {segment}")
 
         for segment in workingcity.connections:
             if segment.start == workingcity:
@@ -176,19 +184,18 @@ def build_routes(city: City):
 
         if city != workingcity:
             rte = Route(city, workingcity, workingpath)
-            print(rte)
+            #print(rte)
 
             if existing := route_exists(ROUTES, city, workingcity):
                 if rte.get_cost() < existing.get_cost():
-                    print(f"Replacing {existing} with {rte}")
+                    #print(f"Replacing {existing} with {rte}")
                     ROUTES.remove(existing)
                     ROUTES.append(rte)
                 else:
-                    print(f"Not replacing {existing} with {rte}")
+                    #print(f"Not replacing {existing} with {rte}")
+                    pass
             else:
                 ROUTES.append(rte)
-        print()
-
 
 def print_route(route: Route):
     print(f"Starting at {route.start.name}, Ending at {route.end.name}, costing {route.get_cost():n}")
@@ -203,3 +210,21 @@ def print_routes(routes: list[Route] = None):
     routes.sort(key=lambda route: route.get_cost())
     for route in routes:
         print_route(route)
+
+def build_all_routes():
+    global ROUTES
+    ROUTES = []
+    for city in CITIES:
+        build_routes(city)
+
+def build_traffic_values():
+    global SEGMENTS, ROUTES
+    for segment in SEGMENTS:
+        segment.utilization = 0
+
+    for route in ROUTES:
+        for segment in route.segments:
+            segment.utilization += route.get_utilization()
+
+    for segment in SEGMENTS:
+        print(f"Traffic rating of {segment.start.name} to {segment.end.name}: {segment.utilization}")
