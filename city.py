@@ -2,10 +2,11 @@ import math
 import csv
 import geopy.distance as geodistance
 import locale
+from tqdm import tqdm, trange
 INDEX = 0
 G=0.0000003
 from queue import SimpleQueue, Queue
-from functools import lru_cache
+from functools import lru_cache, cache, cached_property
 
 locale.setlocale(locale.LC_ALL, '')
 
@@ -67,7 +68,7 @@ def connect_cities(city1 : City, city2 : City) -> None:
 
 
 def save_connections(cities : list[City], filename : str = "connections.save"):
-    file = open(filename, "w", newline='')
+    file = open(filename, "w", newline='', encoding='utf-8')
     writer = csv.writer(file)
     for segment in SEGMENTS:
         city = segment.start
@@ -75,7 +76,7 @@ def save_connections(cities : list[City], filename : str = "connections.save"):
         writer.writerow([city.name, connection.name])
 
 def load_connections(cities : list[City], filename : str = "connections.save"):
-    data = csv.reader(open(filename))
+    data = csv.reader(open(filename, encoding='utf-8'))
     for row in data:
         try:
             first_city = [i for i in cities if i.name == row[0]][0]
@@ -143,11 +144,11 @@ class Route:
     def __str__(self):
         return f"{self.start.name} to {self.end.name}, cost {round(self.get_cost()):n} hours"
 
-    @lru_cache()
+    @cache
     def get_cost(self):
         return sum([i.cost for i in self.segments])
 
-    @lru_cache()
+    @cache
     def get_utilization(self):
         return (G * self.start.population * self.end.population) / self.get_cost() ** 2
 
@@ -214,17 +215,17 @@ def print_routes(routes: list[Route] = None):
 def build_all_routes():
     global ROUTES
     ROUTES = []
-    for city in CITIES:
+    print("Routing")
+    for city in tqdm(CITIES):
         build_routes(city)
 
 def build_traffic_values():
     global SEGMENTS, ROUTES
     for segment in SEGMENTS:
         segment.utilization = 0
-
     for route in ROUTES:
         for segment in route.segments:
             segment.utilization += route.get_utilization()
 
-    for segment in SEGMENTS:
-        print(f"Traffic rating of {segment.start.name} to {segment.end.name}: {segment.utilization}")
+    #for segment in SEGMENTS:
+    #    print(f"Traffic rating of {segment.start.name} to {segment.end.name}: {segment.utilization}")

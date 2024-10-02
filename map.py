@@ -141,7 +141,7 @@ def draw_cities(cities : list[City], start, screen, zoom, scale=1, highlighted :
         draw_dot(position=city.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=city.get_size(scale=scale, min=zoom ), color=city.get_color())
         #draw_dot(position=city.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=10, color=city.get_color())
         if zoom > 8:
-            name = font.render(f"{city.name.split(',')[0]},   #{city.index}", True, (5,5,5))
+            name = font.render(f"{city.name.split(',')[0]}", True, (5,5,5))
             name_size = name.get_size()
             namex, namey = basemap.real_coords_to_map_coords_fixed(*city.get_location(), startcorner=startcorner, zoom=zoom)
             namey += city.get_size(scale=scale, min=zoom )
@@ -215,7 +215,8 @@ if __name__ == "__main__":
         load_connections(CITIES)
     except FileNotFoundError:
         pass
-    #print(*[i[1] for i in city_positions], sep='\n')
+    build_all_routes()
+    build_traffic_values()
 
     CITIES.sort(key=lambda x:x.population, reverse=False)
     clicked = False

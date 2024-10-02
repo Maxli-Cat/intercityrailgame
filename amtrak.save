@@ -1,0 +1,396 @@
+"Denver-Aurora-Centennial, CO",Winter Park Resort
+"Hartford-West Hartford-East Hartford, CT","Springfield, MA"
+Berlin,"Hartford-West Hartford-East Hartford, CT"
+Wallingford,Berlin
+"New Haven, CT",Wallingford
+"Milwaukee-Waukesha, WI","Chicago-Naperville-Elgin, IL-IN"
+"Amherst Town-Northampton, MA","Greenfield, MA"
+"Springfield, MA","Amherst Town-Northampton, MA"
+Freeport,Brunswick
+"Portland-South Portland, ME",Freeport
+Old Orchard Beach,"Portland-South Portland, ME"
+Saco–Biddeford,Old Orchard Beach
+Wells,Saco–Biddeford
+"Dover, New Hampshire",Wells
+Exeter,"Dover, New Hampshire"
+Haverhill,Exeter
+"Boston-Cambridge-Newton, MA-NH",Haverhill
+Roseville ,"Auburn, California"
+"Sacramento-Roseville-Folsom, CA",Roseville 
+"Vallejo, CA","Sacramento-Roseville-Folsom, CA"
+"San Jose-Sunnyvale-Santa Clara, CA","San Ramon, California"
+"Durham-Chapel Hill, NC","Raleigh-Cary, NC"
+"Burlington, NC","Durham-Chapel Hill, NC"
+"Greensboro-High Point, NC","Burlington, NC"
+High Point ,"Greensboro-High Point, NC"
+"Salisbury, North Carolina",High Point 
+Kannapolis,"Salisbury, North Carolina"
+"Charlotte-Concord-Gastonia, NC-SC",Kannapolis
+"Holland, MI","Grand Rapids-Wyoming-Kentwood, MI"
+"South Haven, Michigan","Holland, MI"
+St. Joseph–Benton Harbor,"South Haven, Michigan"
+"Albany-Schenectady-Troy, NY","Pittsfield, MA"
+"Hudson, NY","Albany-Schenectady-Troy, NY"
+"Kingston, NY","Hudson, NY"
+Poughkeepsie,"Kingston, NY"
+"New York-Newark-Jersey City, NY-NJ",Poughkeepsie
+"Trenton-Princeton, NJ","New York-Newark-Jersey City, NY-NJ"
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD","Trenton-Princeton, NJ"
+Exton,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD"
+Coatesville,Exton
+Parkesburg,Coatesville
+"Lancaster, PA",Parkesburg
+Elizabethtown,"Lancaster, PA"
+"Harrisburg-Carlisle, PA",Elizabethtown
+"Pauls Valley, Oklahoma","Oklahoma City, OK"
+"Pauls Valley, Oklahoma","Ardmore, OK"
+"Ardmore, OK","Gainesville, TX"
+"Gainesville, TX","Fort Worth, Texas"
+"Aurora, Illinois","Chicago-Naperville-Elgin, IL-IN"
+"Princeton, Illinois","Aurora, Illinois"
+"Kewanee, Illinois","Princeton, Illinois"
+"Galesburg, IL","Kewanee, Illinois"
+"Macomb, IL","Galesburg, IL"
+"Quincy, IL-MO","Macomb, IL"
+"Warrensburg, MO","Kansas City, MO-KS"
+"Sedalia, MO","Warrensburg, MO"
+"Jefferson City, MO","Sedalia, MO"
+"St Louis, MO-IL","Jefferson City, MO"
+"St Louis, MO-IL",Alton
+"Carlinville, Illinois",Alton
+"Carlinville, Illinois","Springfield, IL"
+"Lincoln, IL","Springfield, IL"
+"Bloomington, IL","Lincoln, IL"
+"Pontiac, IL","Bloomington, IL"
+"Joliet, Illinois","Pontiac, IL"
+"Chicago-Naperville-Elgin, IL-IN","Joliet, Illinois"
+"Michigan City-La Porte, IN","Chicago-Naperville-Elgin, IL-IN"
+"Niles, MI","Michigan City-La Porte, IN"
+St. Joseph–Benton Harbor,"Michigan City-La Porte, IN"
+"Kalamazoo-Portage, MI","Niles, MI"
+"Battle Creek, MI","Kalamazoo-Portage, MI"
+Albion,"Battle Creek, MI"
+"Jackson, MI",Albion
+"Jackson, MI","Ann Arbor, MI"
+Detroit/Windsor,"Ann Arbor, MI"
+"Auburn Hills, Michigan",Detroit/Windsor
+Saratoga Springs,"Albany-Schenectady-Troy, NY"
+"Glens Falls, NY",Saratoga Springs
+Whitehall,"Glens Falls, NY"
+"Rutland, VT",Whitehall
+Middlebury,"Rutland, VT"
+Ferrisburgh–Vergennes ,Middlebury
+"Burlington-South Burlington, VT",Ferrisburgh–Vergennes 
+"Chicago-Naperville-Elgin, IL-IN","Kankakee, IL"
+"Kankakee, IL",Rantoul
+Rantoul,"Champaign-Urbana, IL"
+"Champaign-Urbana, IL","Effingham, IL"
+"Effingham, IL","Centralia, IL"
+"Centralia, IL","Carbondale, IL"
+"Vallejo, CA","San Francisco-Oakland-Fremont, CA"
+"San Ramon, California","San Francisco-Oakland-Fremont, CA"
+"Antioch, California","Vallejo, CA"
+"Stockton-Lodi, CA","Antioch, California"
+"Sacramento-Roseville-Folsom, CA","Stockton-Lodi, CA"
+"Modesto, CA","Stockton-Lodi, CA"
+"Merced, CA","Modesto, CA"
+"Merced, CA",Madera
+"Fresno, CA",Madera
+"Hanford-Corcoran, CA","Fresno, CA"
+"Hanford-Corcoran, CA","Delano, California"
+"Bakersfield-Delano, CA","Delano, California"
+"Lansing-East Lansing, MI","Battle Creek, MI"
+Durand,"Lansing-East Lansing, MI"
+"Flint, MI",Durand
+"Imlay City, Michigan","Flint, MI"
+Port Edward/Port Huron,"Imlay City, Michigan"
+"Carlsbad, California",Tijuana/San Diego
+"San Clemente, California","Carlsbad, California"
+"San Clemente, California","Aliso Viejo, California"
+"Los Angeles-Long Beach-Anaheim, CA","Aliso Viejo, California"
+"Oxnard-Thousand Oaks-Ventura, CA","Los Angeles-Long Beach-Anaheim, CA"
+"Santa Barbara, California","Oxnard-Thousand Oaks-Ventura, CA"
+Lompoc–Surf,"Santa Barbara, California"
+"Santa Maria-Santa Barbara, CA",Lompoc–Surf
+"Plattsburgh, NY",Rouses Point
+"Plattsburgh, NY",Westport
+Westport,Ticonderoga
+Ticonderoga,Whitehall
+"Red Wing, MN","Minneapolis-St Paul-Bloomington, MN-WI"
+"Winona, MN","Red Wing, MN"
+"La Crosse-Onalaska, WI-MN","Winona, MN"
+Wisconsin Dells,"La Crosse-Onalaska, WI-MN"
+Portage ,Wisconsin Dells
+"Milwaukee-Waukesha, WI",Portage 
+"Lewistown, PA","Harrisburg-Carlisle, PA"
+"Huntingdon, PA","Lewistown, PA"
+Tyrone ,"Huntingdon, PA"
+"Altoona, PA",Tyrone 
+"Johnstown, PA","Altoona, PA"
+"Greensburg, Pennsylvania","Johnstown, PA"
+"Pittsburgh, PA","Greensburg, Pennsylvania"
+"Buffalo-Cheektowaga, NY",Niagara Falls
+"Rochester, NY","Buffalo-Cheektowaga, NY"
+"Syracuse, NY","Rochester, NY"
+"Utica-Rome, NY","Syracuse, NY"
+"Amsterdam, NY","Utica-Rome, NY"
+"Albany-Schenectady-Troy, NY","Amsterdam, NY"
+"Mount Vernon-Anacortes, WA","Bellingham, WA"
+"Everett, Washington","Mount Vernon-Anacortes, WA"
+"Everett, Washington","Seattle-Tacoma-Bellevue, WA"
+Tacoma Dome,"Seattle-Tacoma-Bellevue, WA"
+"Olympia-Lacey-Tumwater, WA",Tacoma Dome
+"Centralia, WA","Olympia-Lacey-Tumwater, WA"
+"Longview-Kelso, WA","Centralia, WA"
+"Portland-Vancouver-Hillsboro, OR-WA","Longview-Kelso, WA"
+"Portland-Vancouver-Hillsboro, OR-WA","Salem, OR"
+"Salem, OR","Albany, OR"
+"Albany, OR","Eugene-Springfield, OR"
+"Burlington-South Burlington, VT",St. Albans
+Waterbury–Stowe,"Burlington-South Burlington, VT"
+"Barre, VT",Waterbury–Stowe
+"Lebanon-Claremont, NH-VT","Barre, VT"
+Windsor–Mt. Ascutney,"Lebanon-Claremont, NH-VT"
+Bellows Falls,Windsor–Mt. Ascutney
+"Brattleboro, VT",Bellows Falls
+"Greenfield, MA","Brattleboro, VT"
+"Providence-Warwick, RI-MA","Boston-Cambridge-Newton, MA-NH"
+"Norwich-New London-Willimantic, CT","Providence-Warwick, RI-MA"
+Old Saybrook,"Norwich-New London-Willimantic, CT"
+"New Haven, CT",Old Saybrook
+"Bridgeport-Stamford-Danbury, CT","New Haven, CT"
+"New York-Newark-Jersey City, NY-NJ","Bridgeport-Stamford-Danbury, CT"
+Wilmington ,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD"
+"Newark, Delaware",Wilmington 
+"Aberdeen, Maryland","Newark, Delaware"
+"Baltimore-Columbia-Towson, MD","Aberdeen, Maryland"
+"Washington-Arlington-Alexandria, DC-VA-MD-WV","Baltimore-Columbia-Towson, MD"
+"Manassas, Virginia","Washington-Arlington-Alexandria, DC-VA-MD-WV"
+"Dumfries, Virginia","Washington-Arlington-Alexandria, DC-VA-MD-WV"
+Fredericksburg,"Dumfries, Virginia"
+Culpeper,"Manassas, Virginia"
+"Charlottesville, VA",Culpeper
+"Richmond, VA",Fredericksburg
+"Williamsburg, Virginia","Richmond, VA"
+"Newport News, Virginia","Williamsburg, Virginia"
+"Lynchburg, VA","Charlottesville, VA"
+"Virginia Beach-Chesapeake-Norfolk, VA-NC","Suffolk, Virginia"
+"Roanoke, VA","Lynchburg, VA"
+"Raleigh-Cary, NC",Selma
+"Wilson, NC",Selma
+"Rocky Mount, NC","Wilson, NC"
+Petersburgh,"Richmond, VA"
+"Suffolk, Virginia",Petersburgh
+Petersburgh,"Rocky Mount, NC"
+"Hagerstown-Martinsburg, MD-WV","Cumberland, MD-WV"
+"Washington-Arlington-Alexandria, DC-VA-MD-WV","Hagerstown-Martinsburg, MD-WV"
+"Connellsville, Pennsylvania","Cumberland, MD-WV"
+"Pittsburgh, PA","Connellsville, Pennsylvania"
+Alliance,"Pittsburgh, PA"
+"Cleveland, OH",Alliance
+"Fayetteville, NC",Selma
+Dillon,"Fayetteville, NC"
+"Florence, SC",Dillon
+"Kingstree, South Carolina","Florence, SC"
+"Charleston-North Charleston, SC","Kingstree, South Carolina"
+"Hammond, LA","New Orleans-Metairie, LA"
+"McComb, MS","Hammond, LA"
+"McComb, MS","Brookhaven, MS"
+"Jackson, MS","Brookhaven, MS"
+"Yazoo City, Mississippi","Jackson, MS"
+"Greenwood, MS","Yazoo City, Mississippi"
+"Memphis, TN-MS-AR","Greenwood, MS"
+"Dyersburg, TN","Memphis, TN-MS-AR"
+"Carbondale, IL","Dyersburg, TN"
+"Springfield, MA","Pittsfield, MA"
+"Worcester, MA","Springfield, MA"
+"Boston-Cambridge-Newton, MA-NH","Worcester, MA"
+"Erie, PA","Buffalo-Cheektowaga, NY"
+"Cleveland, OH","Erie, PA"
+"Lorain, Ohio","Cleveland, OH"
+"Sandusky, OH","Lorain, Ohio"
+"Toledo, OH","Sandusky, OH"
+"Auburn, IN","Toledo, OH"
+"Elkhart-Goshen, IN","Auburn, IN"
+"South Bend-Mishawaka, IN-MI","Elkhart-Goshen, IN"
+"Michigan City-La Porte, IN","South Bend-Mishawaka, IN-MI"
+"Crawfordsville, IN","Indianapolis-Carmel-Greenwood, IN"
+"Lafayette-West Lafayette, IN","Crawfordsville, IN"
+"Crown Point, Indiana","Lafayette-West Lafayette, IN"
+"Chicago-Naperville-Elgin, IL-IN","Crown Point, Indiana"
+"Connersville, IN","Indianapolis-Carmel-Greenwood, IN"
+"Cincinnati, OH-KY-IN","Connersville, IN"
+"Maysville, Kentucky","Cincinnati, OH-KY-IN"
+"Portsmouth, OH","Maysville, Kentucky"
+"Huntington-Ashland, WV-KY-OH","Portsmouth, OH"
+"Huntington-Ashland, WV-KY-OH","Charleston, WV"
+Montgomery,"Charleston, WV"
+Thurmond,Montgomery
+Hinton,Thurmond
+"Staunton-Stuarts Draft, VA","Charlottesville, VA"
+"Lexington, Virginia","Staunton-Stuarts Draft, VA"
+"Covington, Virginia","Lexington, Virginia"
+"Lewisburg, West Virginia","Covington, Virginia"
+Hinton,"Lewisburg, West Virginia"
+"Alpine, Texas",Ciudad Juárez/El Paso
+Sanderson,"Alpine, Texas"
+"Del Rio, TX",Sanderson
+"San Antonio-New Braunfels, TX","Del Rio, TX"
+"San Marcos, Texas","San Antonio-New Braunfels, TX"
+"Austin-Round Rock-San Marcos, TX","San Marcos, Texas"
+"Deming, NM",Ciudad Juárez/El Paso
+"Deming, NM",Lordsburg
+"Tucson, AZ","Benson, Arizona"
+Lordsburg,"Benson, Arizona"
+"Maricopa, Arizona","Tucson, AZ"
+"Yuma, AZ","Maricopa, Arizona"
+"Riverside-San Bernardino-Ontario, CA","Los Angeles-Long Beach-Anaheim, CA"
+"Yuma, AZ","Riverside-San Bernardino-Ontario, CA"
+"Georgetown, Texas","Austin-Round Rock-San Marcos, TX"
+"Killeen-Temple, TX","Georgetown, Texas"
+"Waco, TX","Killeen-Temple, TX"
+"Burleson, Texas","Waco, TX"
+"Fort Worth, Texas","Burleson, Texas"
+"Dallas-Fort Worth-Arlington, TX","Fort Worth, Texas"
+Mineola,"Dallas-Fort Worth-Arlington, TX"
+"Longview, TX",Mineola
+"Texarkana, TX-AR","Longview, TX"
+"Hope, Arkansas","Texarkana, TX-AR"
+"Arkadelphia, AR","Hope, Arkansas"
+"Malvern, AR","Arkadelphia, AR"
+"Little Rock-North Little Rock-Conway, AR","Malvern, AR"
+Walnut Ridge,"Little Rock-North Little Rock-Conway, AR"
+"Poplar Bluff, MO",Walnut Ridge
+Arcadia Valley,"Poplar Bluff, MO"
+"St Louis, MO-IL",Arcadia Valley
+Chemult ,"Eugene-Springfield, OR"
+"Klamath Falls, OR",Chemult 
+"Mount Shasta, California","Redding, CA"
+"Klamath Falls, OR","Mount Shasta, California"
+"Chico, CA","Redding, CA"
+"Sacramento-Roseville-Folsom, CA","Chico, CA"
+"Salinas, CA","San Jose-Sunnyvale-Santa Clara, CA"
+"Salinas, CA","Santa Maria-Santa Barbara, CA"
+"Slidell-Mandeville-Covington, LA","New Orleans-Metairie, LA"
+"Picayune, MS","Slidell-Mandeville-Covington, LA"
+"Picayune, MS","Hattiesburg, MS"
+"Laurel, MS","Hattiesburg, MS"
+"Laurel, MS","Meridian, MS"
+"Tuscaloosa, AL","Meridian, MS"
+"Birmingham, AL","Tuscaloosa, AL"
+"Anniston-Oxford, AL","Birmingham, AL"
+"Atlanta-Sandy Springs-Roswell, GA","Anniston-Oxford, AL"
+"Gainesville, GA","Atlanta-Sandy Springs-Roswell, GA"
+"Toccoa, GA","Gainesville, GA"
+"Seneca, SC","Toccoa, GA"
+"Greenville-Anderson-Greer, SC","Seneca, SC"
+"Spartanburg, SC","Greenville-Anderson-Greer, SC"
+Gastonia,"Spartanburg, SC"
+"Charlotte-Concord-Gastonia, NC-SC",Gastonia
+"Fort Lauderdale, Florida","Miami-Fort Lauderdale-West Palm Beach, FL"
+"Boynton Beach, Florida","West Palm Beach, Florida"
+"Boca Raton, Florida","Boynton Beach, Florida"
+"Fort Lauderdale, Florida","Boca Raton, Florida"
+"Okeechobee, FL","West Palm Beach, Florida"
+"Sebring, FL","Okeechobee, FL"
+"Lakeland-Winter Haven, FL","Sebring, FL"
+"Tampa-St Petersburg-Clearwater, FL","Lakeland-Winter Haven, FL"
+"Lakeland-Winter Haven, FL","Orlando-Kissimmee-Sanford, FL"
+"Orlando-Kissimmee-Sanford, FL","Deltona-Daytona Beach-Ormond Beach, FL"
+"Deltona-Daytona Beach-Ormond Beach, FL","Palatka, FL"
+"Jacksonville, FL","Palatka, FL"
+"Jesup, GA","Jacksonville, FL"
+"Savannah, GA","Jesup, GA"
+Yemassee,"Savannah, GA"
+"Charleston-North Charleston, SC",Yemassee
+Denmark,"Savannah, GA"
+"Columbia, SC",Denmark
+"Columbia, SC","Camden, South Carolina"
+"Camden, South Carolina","Rockingham, NC"
+"Pinehurst-Southern Pines, NC","Rockingham, NC"
+"Raleigh-Cary, NC","Pinehurst-Southern Pines, NC"
+"Rocky Mount, NC","Raleigh-Cary, NC"
+Schriever,"New Orleans-Metairie, LA"
+"New Iberia, LA",Schriever
+"Lafayette, LA","New Iberia, LA"
+"Lake Charles, LA","Lafayette, LA"
+"Beaumont-Port Arthur, TX","Lake Charles, LA"
+"Beaumont-Port Arthur, TX","Houston-Pasadena-The Woodlands, TX"
+"San Antonio-New Braunfels, TX","Houston-Pasadena-The Woodlands, TX"
+"Lawrence, KS","Kansas City, MO-KS"
+"Topeka, KS","Lawrence, KS"
+Newton ,"Topeka, KS"
+Newton ,"Hutchinson, KS"
+"Dodge City, KS","Hutchinson, KS"
+"Kirksville, MO","Kansas City, MO-KS"
+"Fort Madison, IA","Kirksville, MO"
+"Galesburg, IL","Fort Madison, IA"
+"Garden City, KS","Dodge City, KS"
+"Lamar, Colorado","Garden City, KS"
+"La Junta, Colorado","Lamar, Colorado"
+"Trinidad, Colorado","La Junta, Colorado"
+"Raton, New Mexico","Trinidad, Colorado"
+"Raton, New Mexico","Las Vegas, NM"
+"Albuquerque, NM","Las Vegas, NM"
+"Gallup, NM","Albuquerque, NM"
+"Winslow, Arizona","Gallup, NM"
+"Flagstaff, AZ","Winslow, Arizona"
+"Kingman, Arizona","Flagstaff, AZ"
+"Needles, California","Kingman, Arizona"
+"Riverside-San Bernardino-Ontario, CA","Needles, California"
+"St Cloud, MN","Minneapolis-St Paul-Bloomington, MN-WI"
+"Staples, Minnesota","St Cloud, MN"
+"Staples, Minnesota","Detroit Lakes, MN"
+"Detroit Lakes, MN","Fargo, ND-MN"
+"Grand Forks, ND-MN","Fargo, ND-MN"
+"Devils Lake, North Dakota","Grand Forks, ND-MN"
+Rugby,"Devils Lake, North Dakota"
+"Minot, ND",Rugby
+Stanley,"Minot, ND"
+"Williston, ND",Stanley
+"Wolf Point, Montana","Williston, ND"
+"Glasgow, Montana","Wolf Point, Montana"
+Malta,"Glasgow, Montana"
+"Havre, Montana",Malta
+"Shelby, Montana","Havre, Montana"
+"Cut Bank, Montana","Shelby, Montana"
+Browning,"Cut Bank, Montana"
+East Glacier Park,Browning
+Essex,East Glacier Park
+West Glacier,Essex
+"Libby, Montana",West Glacier
+"Sandpoint, ID","Libby, Montana"
+"Spokane-Spokane Valley, WA","Sandpoint, ID"
+"Wenatchee-East Wenatchee, WA","Spokane-Spokane Valley, WA"
+"Wenatchee-East Wenatchee, WA",Leavenworth 
+"Everett, Washington",Leavenworth 
+"Kennewick-Richland, WA","Spokane-Spokane Valley, WA"
+"The Dalles, OR","Kennewick-Richland, WA"
+"Hood River, OR","The Dalles, OR"
+"Portland-Vancouver-Hillsboro, OR-WA","Hood River, OR"
+"Truckee-Grass Valley, CA","Auburn, California"
+"Reno, NV","Truckee-Grass Valley, CA"
+"Winnemucca, NV","Reno, NV"
+"Elko, NV","Winnemucca, NV"
+"Salt Lake City-Murray, UT","Elko, NV"
+"Provo-Orem-Lehi, UT","Salt Lake City-Murray, UT"
+"Price, UT","Provo-Orem-Lehi, UT"
+Green River,"Price, UT"
+"Grand Junction, CO",Green River
+"Carbondale, Colorado","Grand Junction, CO"
+Granby,"Carbondale, Colorado"
+Fraser–Winter Park ,Granby
+Winter Park Resort,Fraser–Winter Park 
+"Fort Morgan, CO","Denver-Aurora-Centennial, CO"
+"McCook, Nebraska","Fort Morgan, CO"
+Holdrege,"McCook, Nebraska"
+"Hastings, NE",Holdrege
+"Lincoln, NE","Hastings, NE"
+"Omaha, NE-IA","Lincoln, NE"
+"Creston, Iowa","Omaha, NE-IA"
+"Osceola, Iowa","Creston, Iowa"
+"Chariton, Iowa","Osceola, Iowa"
+"Ottumwa, IA","Chariton, Iowa"
+"Mount Pleasant, Iowa","Ottumwa, IA"
+"Burlington, IA-IL","Mount Pleasant, Iowa"
+"Galesburg, IL","Burlington, IA-IL"
