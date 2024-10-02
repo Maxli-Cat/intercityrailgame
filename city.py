@@ -4,7 +4,7 @@ import geopy.distance as geodistance
 import locale
 from tqdm import tqdm, trange
 INDEX = 0
-G=0.0000003
+G=0.0000002
 from queue import SimpleQueue, Queue
 from functools import lru_cache, cache, cached_property
 
@@ -47,6 +47,9 @@ class City:
 
     def get_distance(self, other) -> float:
         return geodistance.geodesic(self.get_location(), other.get_location()).miles
+
+    def get_usage(self):
+        return sum([i.utilization for i in self.connections])
 
 def get_connection(city1: City, city2: City):
     for segment in SEGMENTS:
@@ -118,7 +121,7 @@ def write_cities(cities : list[City], filename='edited.csv') -> None:
     file.close()
 
 class Segment:
-    def __init__(self, start : City, end : City, speed = 1, capacity = float('inf')) -> None:
+    def __init__(self, start : City, end : City, speed = 80, capacity = float('inf')) -> None:
         global SEGMENTS
         self.start = start
         self.end = end
@@ -149,8 +152,22 @@ class Route:
         return sum([i.cost for i in self.segments])
 
     @cache
+    def get_distance(self):
+        return sum([i.distance for i in self.segments])
+
+    @cache
     def get_utilization(self):
-        return (G * self.start.population * self.end.population) / self.get_cost() ** 2
+        total_utilization = (G * self.start.population * self.end.population) / self.get_cost() ** 2
+        if dist := self.get_distance() > 750:
+            mode_share = 0.1
+        elif 200 < dist:
+            mode_share = 1.32727 - (0.00163636 * dist)
+        elif 50 < dist:
+            mode_share = 0.005 * dist
+        else:
+            mode_share = 0.25
+        train_utilization = mode_share * total_utilization
+        return train_utilization
 
 def route_exists(routes: list[Route], city1: City, city2: City) -> Route | bool:
     for route in routes:
@@ -199,7 +216,7 @@ def build_routes(city: City):
                 ROUTES.append(rte)
 
 def print_route(route: Route):
-    print(f"Starting at {route.start.name}, Ending at {route.end.name}, costing {route.get_cost():n}")
+    print(f"Starting at {route.start.name}, Ending at {route.end.name}, costing {route.get_cost():n}, seeing {route.get_utilization()} riders")
     for segment in route.segments:
         print(f" - {segment}")
     print(f"")
@@ -211,6 +228,15 @@ def print_routes(routes: list[Route] = None):
     routes.sort(key=lambda route: route.get_cost())
     for route in routes:
         print_route(route)
+
+def print_selected_routes(city: City, routes: list[Route] = None):
+    if routes is None:
+        global ROUTES
+        routes = ROUTES[:]
+    routes.sort(key=lambda route: route.get_cost())
+    for route in routes:
+        if route.start == city or route.end == city:
+            print_route(route)
 
 def build_all_routes():
     global ROUTES

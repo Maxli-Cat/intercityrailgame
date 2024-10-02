@@ -9,6 +9,8 @@ import locale
 locale.setlocale(locale.LC_ALL, '')
 NATIONALISM = False
 
+LINE_SCALE=0.0001
+
 pygame.init()
 pygame.font.init()
 
@@ -159,7 +161,7 @@ def draw_cities(cities : list[City], start, screen, zoom, scale=1, highlighted :
     if highlighted is not None:
         draw_dot(position=highlighted.get_location(), screen=screen, startcorner=start, zoom=zoom, radius=10, color=(255,255,0))
 
-def draw_links( start, screen, zoom, scale=1):
+def draw_links( start, screen, zoom, scale=1.0):
     for segment in SEGMENTS:
         city = segment.start
         link = segment.end
@@ -170,7 +172,7 @@ def draw_links( start, screen, zoom, scale=1):
 def screen_draw(screen, startcorner, zoom, cities = (), highlighted = None):
     draw_tiles(startcorner, pygame.display.get_surface().get_size(), screen, zoom=zoom)
     #draw_msa(start=startcorner, screen=screen, zoom=zoom, filename="msa.csv")
-    draw_links(start=startcorner, zoom=zoom, screen=screen)
+    draw_links(start=startcorner, zoom=zoom, screen=screen, scale=LINE_SCALE)
     draw_cities(cities=cities, start=startcorner, zoom=zoom, screen=screen, highlighted=highlighted)
     draw_attribution(screen)
 
@@ -212,7 +214,7 @@ if __name__ == "__main__":
 
     city_positions = buildcityposlist(CITIES, startcorner, zoom_factor, screen.get_size())
     try:
-        load_connections(CITIES)
+        load_connections(CITIES, filename="amtrak.save")
     except FileNotFoundError:
         pass
     build_all_routes()
@@ -279,6 +281,12 @@ if __name__ == "__main__":
                     build_all_routes()
                     build_traffic_values()
                     screen_draw(screen, startcorner, zoom=zoom_factor, cities=CITIES, highlighted=lastclicked)
+                elif event.key == pygame.K_a:
+                    LINE_SCALE *= 1.1
+                    print(LINE_SCALE)
+                elif event.key == pygame.K_d:
+                    LINE_SCALE /= 1.1
+                    print(LINE_SCALE)
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
@@ -310,8 +318,8 @@ if __name__ == "__main__":
                 elif event.button == 3:
                     city_positions = buildcityposlist(CITIES, startcorner, zoom_factor, screen.get_size())
                     if city := check_city_clicked(city_positions, pygame.mouse.get_pos(), zoom=zoom_factor):
-                        build_routes(city)
-
+                        print(city)
+                        print(f"Sees {city.get_usage()} pax")
             if clicked:
                 newpos = pygame.mouse.get_pos()
                 deltay = (newpos[0] - lastmouse[0]) * offsetfactors[0]
